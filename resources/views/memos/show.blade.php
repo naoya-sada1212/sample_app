@@ -8,8 +8,6 @@
       {{ session('message') }}
   @endif
 
-  {{ $memo->title }}
-  {{ $memo->content }}
 
   <div class="container mx-o my-2">
     <div class="card border-primary mb-3" style="max-width: 18rem;">
