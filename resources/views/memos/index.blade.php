@@ -1,4 +1,13 @@
-<h1>Memos</h1>
+@extends('layouts.layouts')
+
+@section('title', 'Sample_app')
+
+@section('content')
+
+  @if (session('message'))
+      {{ session('message') }}
+  @endif
+  
 
 @foreach($memos as $memo)
     <a href="/memos/{{ $memo->id }}">{{ $memo->title }}</a>
@@ -12,3 +21,4 @@
 @endforeach
 
 <a href="/memos/create">作成</a>
+@endsection

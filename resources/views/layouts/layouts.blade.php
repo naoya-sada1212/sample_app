@@ -1,15 +1,30 @@
 <html>
     <head>
         <title>@yield('title')</title>
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+        <meta name="csrf_token" content="{{ csrf_token() }}">
+        <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
+    <style>
+     .header {
+        width: 100%;
+        height: 3rem;
+        margin: 0;
+        padding: 1rem;
+        background-color: #819ff7;
+        font-weight: bold;
+      }
+    </style>
+    
     </head>
     <body>
+        @component('components.header')
+        @endcomponent
         <div class="container">
             @yield('content')
         </div>
         
-        <script src="{{ mix('js/app.js') }}"></script>
+        @component('components.footer')
+        @endcomponent
         
+        <script src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>

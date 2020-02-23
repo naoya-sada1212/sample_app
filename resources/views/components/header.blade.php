@@ -1,0 +1,16 @@
+<div class="header">
+  <p>練習メモ</p>
+</div>
+<div class="container mx-0 my-2">
+  <ul class="nav nav-tabs" class="justify-content-end">
+    <li class="nav-item">
+      <a class="nav-link active" href="#">メモ</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">予定表</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">目標</a>
+    </li>
+  </ul>
+</div>

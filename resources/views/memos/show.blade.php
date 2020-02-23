@@ -1,8 +1,15 @@
-@if (session('message'))
-    {{ session('message') }}
-@endif
+@extends('layouts.layouts')
 
-{{ $memo->title }}
-{{ $memo->content }}
+@section('title', 'Sample_app')
+
+@section('content')
+
+  @if (session('message'))
+      {{ session('message') }}
+  @endif
+
+  {{ $memo->title }}
+  {{ $memo->content }}
 
 <a href="/memos/{{ $memo->id }}/edit">Edit</a>
+@endsection
