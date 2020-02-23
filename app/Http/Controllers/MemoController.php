@@ -14,7 +14,9 @@ class MemoController extends Controller
      */
     public function index()
     {
-        //
+      $memos = Memo::all();
+      
+      return view('memos.index', compact('memos'));
     }
 
     /**
@@ -24,7 +26,7 @@ class MemoController extends Controller
      */
     public function create()
     {
-        //
+      return view('memos.create');
     }
 
     /**
@@ -35,7 +37,12 @@ class MemoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+     $memo = new Memo();
+     $memo->title = $request->input('title');
+     $memo->content = $request->input('content');
+     $memo->save();
+     
+     return redirect()->route('memos.show', ['id => $post->id'])->with('message', 'Memo was successfully created.');
     }
 
     /**
@@ -46,7 +53,7 @@ class MemoController extends Controller
      */
     public function show(Memo $memo)
     {
-        //
+      return view('memos.show', compact('memo'));
     }
 
     /**
@@ -57,7 +64,7 @@ class MemoController extends Controller
      */
     public function edit(Memo $memo)
     {
-        //
+     return view('memos.edit', compact('memo'));
     }
 
     /**
@@ -69,7 +76,11 @@ class MemoController extends Controller
      */
     public function update(Request $request, Memo $memo)
     {
-        //
+     $memo->title = $request->input('title');
+     $memo->content = $request->input('content');
+     $post->save();
+     
+     return redirect()->route('memos.show', ['id' => $memo->id])->with('message', 'Memo was successfully update.');
     }
 
     /**
@@ -80,6 +91,8 @@ class MemoController extends Controller
      */
     public function destroy(Memo $memo)
     {
-        //
+        $memo->delete();
+        
+        return redirect()->route('memos.index');
     }
 }
