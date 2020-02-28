@@ -13,19 +13,30 @@
         background-color: #819ff7;
         font-weight: bold;
       }
+      .date {
+          font-size: 40px;
+          font-weight: bold;
+          margin: 20px;
+          
+      }
     </style>
     
     </head>
     <body>
         @component('components.header')
         @endcomponent
+        <div class="date">
+        <?php 
+        $date = date('Y/m/d');
+        print_r($date);
+        ?>
+        </div>
         <div class="container">
             @yield('content')
         </div>
         
         @component('components.footer')
         @endcomponent
-        
         <script src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>

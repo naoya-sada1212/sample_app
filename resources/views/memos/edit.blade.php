@@ -19,17 +19,19 @@
 <form method="POST" action="/memos//{{ $memo->id }}">
     {{ csrf_field() }}
     <input type="hidden" name="_method" value="PUT">
-    <div class="form-group">
-        <label for="exampleInputEmail">タイトル</label>
+　　<div class="card border-primary mb-3" style="max-width: 20rem;" style="max-height: 40rem;">
+      <div class="card-header">
         <input type="text" class="form-control" aria-describedby="emailHelp" name="title" value="{{old('title') == '' ? $memo->title : old('title') }}">
-    </div>
-    <div class="form-group">
-        <label for="exampleInputPassword1">メモ内容</label>
-        <textarea class="form-control" name="content">{{old('content') == '' ? $memo->content : old('content') }}</textarea>
+      </div>
+      <div class="card-body text-primary">
+        <p class="card-text">
+          <textarea class="form-control" name="content">{{old('content') == '' ? $memo->content : old('content') }}</textarea>
+        </p>
+        <input type="text" class="form-control" name="memo_date">
+      </div>
     </div>
     <button type="submit" class="btn btn-outline-primary">決定</button>
 </form>
 
-<a href="/memos/{{ $memo->id }}">追加</a> |
 <a href="/memos/">戻る</a>
 @endsection

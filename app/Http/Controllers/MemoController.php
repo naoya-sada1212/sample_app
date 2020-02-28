@@ -14,9 +14,9 @@ class MemoController extends Controller
      */
     public function index()
     {
-       $memos = Memo::all();
+        $memos = Memo::all();
       
-       return view('memos.index', compact('memos'));
+        return view('memos.index', compact('memos'));
     }
 
     /**
@@ -40,13 +40,15 @@ class MemoController extends Controller
         $request->validate([
             'title' => 'required',
             'content' => 'required',
+            'memo_date' => 'required',
             ]);
         $memo = new Memo();
         $memo->title = $request->input('title');
         $memo->content = $request->input('content');
+        $memo->memo_date = $request->input('memo_date');
         $memo->save();
      
-        return redirect()->route('memos.show', ['id' => $memo->id])->with('message', 'Memo was successfully created.');
+        return redirect()->route('memos.index', ['id' => $memo->id]);
     }
 
     /**
@@ -83,13 +85,15 @@ class MemoController extends Controller
         $request->validate([
             'title' => 'required',
             'content' => 'required',
+            'memo_date' => 'required',
             ]);
             
         $memo->title = $request->input('title');
         $memo->content = $request->input('content');
-        $post->save();
+        $memo->memo_date = $request->input('memo_date');
+        $memo->save();
      
-        return redirect()->route('memos.show', ['id' => $memo->id])->with('message', 'Memo was successfully updated.');
+        return redirect()->route('memos.index', ['id' => $memo->id]);
     }
 
     /**
