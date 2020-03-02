@@ -1,4 +1,4 @@
-@extends('layouts.layouts')
+@extends('layouts.memos')
 
 @section('title', 'Sample_app')
 

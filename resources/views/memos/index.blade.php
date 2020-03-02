@@ -1,4 +1,4 @@
-@extends('layouts.layouts')
+@extends('layouts.memos')
 
 @section('title', 'Sample_app')
 
@@ -8,7 +8,6 @@
 @foreach($memos as $memo)
 <div class="main" style="float: left;">
 <p><?php echo date("Y年n月j日"); ?></p>
-<p>{{ $memo->memo_date }}</p>
 <div class="container mx-o my-2">
   <div class="card border-primary mb-3" style="width: 20rem;" style="height: 40rem;">
     <div class="card-header">{{ $memo->title }}</div>

@@ -14,7 +14,9 @@ class GoalController extends Controller
      */
     public function index()
     {
-        //
+        $goals = Goal::all();
+         
+        return view('goals.index', compact('goals'));
     }
 
     /**
@@ -24,7 +26,7 @@ class GoalController extends Controller
      */
     public function create()
     {
-        //
+        return view('goals.create');
     }
 
     /**
@@ -35,7 +37,13 @@ class GoalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $goal = new Goal();
+        $goal->mark = $request->input('mark');
+        $goal->now = $request->input('now');
+        $goal->todo = $request->input('todo');
+        $goal->save();
+        
+        return redirect()->route('goals.index', ['id' => $goal->id]);
     }
 
     /**
@@ -46,7 +54,6 @@ class GoalController extends Controller
      */
     public function show(Goal $goal)
     {
-        //
     }
 
     /**
@@ -57,7 +64,7 @@ class GoalController extends Controller
      */
     public function edit(Goal $goal)
     {
-        //
+      return view('goals.edit', compact('goal'));
     }
 
     /**
@@ -69,7 +76,12 @@ class GoalController extends Controller
      */
     public function update(Request $request, Goal $goal)
     {
-        //
+        $goal->mark = $request->input('mark');
+        $goal->now = $request->input('now');
+        $goal->todo = $request->input('todo');
+        $goal->save();
+        
+        return redirect()->route('goals.index', ['id' =>$goal->id]);
     }
 
     /**
@@ -80,6 +92,8 @@ class GoalController extends Controller
      */
     public function destroy(Goal $goal)
     {
-        //
+        $goal->delete();
+        
+        return redirect()->route('goals.index');
     }
 }

@@ -17,5 +17,5 @@ Route::resource('memos', 'MemoController');
 
 Route::resource('goals','GoalController');
 
-Route::get('/holiday', 'CalendarController@getHoliday');
-Route::post('/holiday', 'CalendarController@postHoliday');
+
+Route::resource('calendars','CalendarController');

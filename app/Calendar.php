@@ -1,54 +1,27 @@
+<?php
+
 namespace App;
-class Calendar
+
+use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
+
+class Calendar extends Model
 {
-   private $html;
-   public function showCalendarTag($m, $y)
-   {
-      $year = $y;
-      $month = $m;
-      if ($year == null) {
-        //システム日付を取得する。
-        $year = date("Y");
-        $month = date("m");
-      }
-      $firstWeekDay = date("w", mktime(0, 0, 0, $month, 1, $year));
-      //1日の曜日（０：日曜日、６：土曜日）
-      $lastDay = date("t", mktime(0, 0, 0, $month, 1, $year));
-      //指定した月の最終日
-      //日曜日からカレンダーを表示するための前月の余った日付をループの初期値にする
-      $day = 1 - $firstWeekDay;
-      $this->html = <<< EOS
-      <h1>{$year}年{$month}月</h1>
-      <table class="table table-bordered">
-          <tr>
-              <th scope="col">日</th>
-              <th scope="col">月</th>
-              <th scope="col">火</th>
-              <th scope="col">水</th>
-              <th scope="col">木</th>
-              <th scope="col">金</th>
-              <th scope="col">土</th>
-          </tr>
-          EOS;
-               //カレンダーの日付部分を生成する
-               while($day <= $lastDay) {
-                   $this->html .= "<tr>";
-                   //各週を描画するHTMLソースを生成する
-                   for ($i = 0; $i < 7; $i++) {
-                       if ($day <= 0 || $day >$lastDay) {
-                           //先月・来月の日付の場合
-                           $this->html .="<td>&nbsp;</tb>;
-                        } else {
-                           $this->html .= "<td>" . $day . "</td>";
-                        }
-                        $day++;
-                    }
-                 
-                    $this->html .= "</tr>";
-                }
-                return $this->html .= '</table>';
-    }
-} 
+    public function getCalendarDates($year, $month)
+    {
+    $dateStr = sprintf('%04d-%02d-01', $year, $month);
+        $date = new Carbon($dateStr);
+        //カレンダーを四角形にするため、前月となる左上の隙間用のデータをいれるためずらす
+        $date->subDay($date->dayofWeek);
+        //同上。左下の隙間のための計算
+        $count = 31 + $date->dayofWeek;
+        $count = ceil($count / 7) * 7;
+        $date = [];
         
-              
-      </table>
+        for ($i = 0; $i < $count; $i++, $date->addDay()) {
+            //copyしないと全部同じオブジェクトを入れてしまうことになる
+            $date[] = $date->copy();
+        }
+        return $dates;
+    }
+}
