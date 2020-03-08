@@ -4,7 +4,7 @@
 
 @section('content')
 
-<h1>編集ページ</h1>
+<h3>編集ページ</h3>
 
 @if ($errors->any())
     <div class="alert alert-danger">
@@ -27,7 +27,7 @@
         <p class="card-text">
           <textarea class="form-control" name="content">{{old('content') == '' ? $memo->content : old('content') }}</textarea>
         </p>
-        <input type="text" class="form-control" name="memo_date">
+        <input type="text" class="form-control" name="memo_date" value="{{old('memo_date') == '' ? $memo->memo_date : old('memo_date') }}">
       </div>
     </div>
     <button type="submit" class="btn btn-outline-primary">決定</button>

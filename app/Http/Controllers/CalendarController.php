@@ -14,9 +14,14 @@ class CalendarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('calendars.index');
+        $calendar = calendar($section, $patient, $month);
+        
+        $month = new CarbonImmutable($month);
+        
+        return view('calendars.calendar', compact('calendar', 'month'));
+        
     }
 
     /**
@@ -84,4 +89,5 @@ class CalendarController extends Controller
     {
         //
     }
+    
 }

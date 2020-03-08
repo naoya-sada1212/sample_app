@@ -37,6 +37,12 @@ class GoalController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'mark' => 'required',
+            'now' => 'required',
+            'todo' => 'required',
+            ]);
+            
         $goal = new Goal();
         $goal->mark = $request->input('mark');
         $goal->now = $request->input('now');
@@ -76,6 +82,12 @@ class GoalController extends Controller
      */
     public function update(Request $request, Goal $goal)
     {
+        $request->validate([
+            'mark' => 'required',
+            'now' => 'required',
+            'todo' => 'required',
+            ]);
+            
         $goal->mark = $request->input('mark');
         $goal->now = $request->input('now');
         $goal->todo = $request->input('todo');

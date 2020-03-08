@@ -5,23 +5,27 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
     <style>
-     .header {
+    .header {
         width: 100%;
         height: 3rem;
         margin: 0;
         padding: 1rem;
-        background-color: #819ff7;
+        background-color: #EFF8FE;
         font-weight: bold;
-      }
-      .date {
-          font-size: 40px;
-          font-weight: bold;
-          margin: 20px;
+        border-bottom: solid 2px #E6E6E6 ;
+    }
+    p {
+        color: #2E9AFE;
+    }
+    .date {
+        font-size: 30px;
+        font-weight: bold;
+        margin: 20px;
           
-      }
-      .container {
-          left: 20px;
-      }
+    }
+    .container {
+        left: 20px;
+    }
     </style>
     
     </head>

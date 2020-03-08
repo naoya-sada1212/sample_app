@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Memo;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class MemoController extends Controller
 {
@@ -14,7 +15,7 @@ class MemoController extends Controller
      */
     public function index()
     {
-        $memos = Memo::all();
+        $memos = Memo::latest('memo_date')->get();
       
         return view('memos.index', compact('memos'));
     }
@@ -47,7 +48,7 @@ class MemoController extends Controller
         $memo->content = $request->input('content');
         $memo->memo_date = $request->input('memo_date');
         $memo->save();
-     
+        
         return redirect()->route('memos.index', ['id' => $memo->id]);
     }
 
@@ -59,7 +60,8 @@ class MemoController extends Controller
      */
     public function show(Memo $memo)
     {
-        return view('memos.show', compact('memo'));
+        $memos = Memo::whereDate('memo_date', '2020-3-3');
+        return view('memos.show', ['memo' => $memo]);
     }
 
     /**
@@ -89,7 +91,7 @@ class MemoController extends Controller
             ]);
             
         $memo->title = $request->input('title');
-        $memo->content = $request->input('content');
+        $memo->conent = $request->input('content');
         $memo->memo_date = $request->input('memo_date');
         $memo->save();
      
@@ -108,4 +110,15 @@ class MemoController extends Controller
         
         return redirect()->route('memos.index');
     }
+    
+   public function calendar(Memo $memo) 
+   {
+       $displayMonth = Carbon::parse('2020-03-01 00:00:00');
+       echo $displayMonth->dayOfWeek;
+       
+
+       $memos = Memo::all();
+       
+       return view('memos.calendar2', ['memo' => $memos, 'month' => $displayMonth]);
+   }
 }

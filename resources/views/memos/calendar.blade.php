@@ -17,29 +17,22 @@ if ($timestamp === false) {
     $timestamp = strtotime($ym . '-01');
 }
 
-//今月の日付フォーマット　例）2018-07-03
+//今月の日付フォーマット
 $today = date('Y-m-j');
 
-//カレンダーのタイトルを作成　例）2017年7月
+//カレンダーのタイトルを作成
 $html_title = date('Y年n月', $timestamp);
 
 //前月・次月の年月を取得
-//方法１：mktimeを使う　mktime(hour,minute,second,month,day,year)
 $prev = date('Y-m', mktime(0, 0, 0, date('m', $timestamp)-1, 1, date('Y', $timestamp)));
 $next = date('Y-m', mktime(0, 0, 0, date('m', $timestamp)+1, 1, date('Y', $timestamp)));
-
-//方法２：strtotimeを使う
-//$prev = date('Y-m', strtotime('-1 month', $timestamp));
-//$next = date('Y-m', strtotime('+1 month', $timestamp));
 
 //該当月の日数を取得
 $day_count = date('t', $timestamp);
 
-//1日が何曜日か　0:日　1:月...6:土
+//1日が何曜日か
 //方法１：mktimeを使う
 $youbi = date('w', mktime(0, 0, 0, date('m', $timestamp), 1, date('Y', $timestamp)));
-//方法２
-//$youbi = date('w', $timestamp);
 
 //カレンダー作成の準備
 $weeks = [];
@@ -56,9 +49,9 @@ for ($day = 1; $day <= $day_count; $day++, $youbi++) {
     
     if ($today == $date) {
        //今日の日付の場合は、class="today"をつける
-       $week .= '<td class="today">' . $day;
+       $week .= '<td class="today"><a href="#" data-toggle="modal" data-target="#exampleModalScrollable">' . $day;
     } else {
-        $week .= '<td>' . $day;
+        $week .= '<td><a href="#" data-toggle="modal" data-target="#exampleModalScrollable">' . $day;
     }
     $week .= '</td>';
     
@@ -94,8 +87,12 @@ for ($day = 1; $day <= $day_count; $day++, $youbi++) {
         margin: 0;
         margin-top: 0;
         padding: 1rem;
-        background-color: #819ff7;
+        background-color: #EFF8FE;
+        border-bottom: solid 2px #E6E6E6 ;
         font-weight: bold;
+    }
+    p {
+        color: #2E9AFE;
     }
     .container {
         left: 20px;
@@ -111,32 +108,23 @@ for ($day = 1; $day <= $day_count; $day++, $youbi++) {
         height: 80px;
     }
     .today {
-        background: #E6E6E6;
+        background-color: #E6E6E6 !important;
     }
     th:nth-of-type(1), td:nth-of-type(1) {
-        color: red;
+        background-color: #F8E0E0;
     }
     th:nth-of-type(7), td:nth-of-type(7) {
-        color: blue;
+        background-color: #E0ECF8;
      }
+    .modal-body {
+      height: 500px;
+    }
 </style>
 </head>
 <body>
-  <div class="header">
-    <p>練習メモ</p>
-  </div>
-  <div class="container mx-0 my-2">
-    <ul class="nav nav-tabs" class="justify-content-end">
-      <li class="nav-item">
-        <a class="nav-link" href="/memos">メモ</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" href="/calendars">予定表</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/goals">目標</a>
-      </li>
-    </ul>
+  @component('components.header3')
+  @endcomponent
+  
   </div>
   <div class="container">
     <h3><a href="?ym=<?php echo $prev; ?>">&lt;</a><?php echo $html_title;?><a href="?ym=<?php echo $next; ?>">&gt;</a></h3>
@@ -157,11 +145,49 @@ for ($day = 1; $day <= $day_count; $day++, $youbi++) {
       ?>
     </table>
   </div>
-  <footer class="py-3 bg-light fixed-bottom">
-    <div class="container">
-      <span class="text-muted small">Sample_app by Laravel & Bootstrap4</span>
+  @component('components.footer')
+  @endcomponent
+  
+  @foreach ($memos as $memo)
+<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalScrollableTitle">メモ</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container mx-o my-2">
+          <div class="card border-primary mb-3" style="width: 20rem;" style="height: 40rem;">
+           <div class="card-header">{{ $memo->title }}</div>
+             <div class="card-body text-primary">
+               <p class="card-text">{{ $memo->content }}</p>
+               <p class="card-text">{{ $memo->memo_date }}</p>
+               <div class="d-flex" styltfe="height: 36.4px;">
+                 <a href="/memos/{{ $memo->id }}/edit" class="btn btn-outline-primary">編集</a>
+                 <form action="/memos/{{ $memo->id }}" method="POST" onsubmit="if(confirm('Delete? Are you sure?')) { return true } else { return false };">
+                   <input type="hidden" name="_method" value="DELETE">
+                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                   <button type="submit" class="btn btn-outline-danger">削除</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+      </div>
     </div>
-  </footer>
+  </div>
+</div>
+@endforeach
+<script src="{{ asset('js/app.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>
 

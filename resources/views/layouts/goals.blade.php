@@ -10,8 +10,13 @@
         height: 3rem;
         margin: 0;
         padding: 1rem;
-        background-color: #819ff7;
+        background-color: #EFF8FE;
+        border-bottom: solid 2px #E6E6E6 ;
         font-weight: bold;
+        
+      }
+      p {
+          color: #2E9AFE;
       }
       .container {
           left: 20px;

@@ -18,4 +18,6 @@ Route::resource('memos', 'MemoController');
 Route::resource('goals','GoalController');
 
 
-Route::resource('calendars','CalendarController');
+Route::get('/calendar', 'MemoController@calendar');
+
+

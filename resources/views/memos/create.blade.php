@@ -3,10 +3,10 @@
 @section('title', 'Sample_app')
 
 @section('content')
-<h1>新しいメモ</h1>
+<h3>新しいメモ</h3>
 
 @if ($errors->any())
-    <div class="alert alert-danger">
+    <div class="alert alert-danger col-4">
         <ul>
             @foreach($errors->all() as $error)
               <li>{{ $error }}</li>
@@ -25,7 +25,7 @@
             <textarea class="form-control" rows="8" cols="50" name="content">{{ old('content') }}</textarea>
         </p>
       </div>
-      <input type="text" class="form-control" name="memo_date">
+      <input type="text" class="form-control" name="memo_date" value="<?php $date = date('Y/m/d'); print_r ($date); ?> ">
     </div> 
     <button type="submit" class="btn btn-outline-primary">決定</button>
 
