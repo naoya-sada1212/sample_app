@@ -53,7 +53,7 @@ for ($day = 1; $day <= $day_count; $day++, $youbi++) {
     } else {
         $week .= '<td><a href="#" data-toggle="modal" data-target="#exampleModalScrollable">' . $day;
     }
-    $week .= '</td>';
+    $week .= '';
     
     //週終わり、または、月終わりの場合
     if ($youbi % 7 == 6 || $day == $day_count) {

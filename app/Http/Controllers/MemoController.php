@@ -113,12 +113,37 @@ class MemoController extends Controller
     
    public function calendar(Memo $memo) 
    {
-       $displayMonth = Carbon::parse('2020-03-01 00:00:00');
-       echo $displayMonth->dayOfWeek;
        
-
-       $memos = Memo::all();
+       $memo = Memo::all();
+       $dt = Carbon::today();
+       $display = $dt->format('Y-m');
+       $start = $dt->startOfMonth();
+       $start->subDay($dt->dayOfWeek);
+       $today = Carbon::today()->format('j');
        
-       return view('memos.calendar2', ['memo' => $memos, 'month' => $displayMonth]);
-   }
+       $dates = [];
+       $j = 0;
+       
+       //for ($i = 1; $i <= $dt->daysInMonth; $i++,$dt->dayOfWeek) {
+           //$dates[] = $i;
+       //}
+       
+       for($i = 0; $i < $dt->dayOfWeek; $i++) {
+           $dates[$j][] = "";
+       }
+       for($i = 1; $i <= $dt->daysInMonth; $i++) {
+           if(isset($dates[$j]) && count($dates[$j]) === 7) {
+               $j++;
+           }
+           $dates[$j][]=$i;       
+           
+       }
+       for($i = count($dates[$j]); $i < 7; $i++) {
+           $dates[$j][]= "";
+       }      
+       $weeks = ['日','月','火','水','木','金','土'];
+       
+       return view('memos.calendar2',compact('memo', 'dates', 'dt','weeks','display','today'));
+           
+    }
 }

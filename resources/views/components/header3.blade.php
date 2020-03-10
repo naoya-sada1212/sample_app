@@ -1,7 +1,8 @@
-<div class="container">
+
 <div class="header">
   <p>練習メモ</p>
 </div>
+<div class="container">
 <div class="container mx-0 my-2">
   <ul class="nav nav-tabs" class="justify-content-end">
     <li class="nav-item">
