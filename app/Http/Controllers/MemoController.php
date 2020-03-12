@@ -123,11 +123,11 @@ class MemoController extends Controller
            $dt = Carbon::today();
        }
        
-       $day = Carbon::parse("$dt");
-       $start = $day->startOfMonth();
+       $display = Carbon::parse("$dt");
+       $start = $display->startOfMonth();
        $dayOfWeek = $start->dayOfWeek;
        $today = Carbon::today();
-       $daysInMonth = $day->daysInMonth;
+       $daysInMonth = $display->daysInMonth;
        
        $prev = Carbon::parse("$dt")->subMonth();
        $next = Carbon::parse("$dt")->addMonth();
@@ -138,6 +138,7 @@ class MemoController extends Controller
        for($i = 0; $i < $dayOfWeek; $i++) {
            $dates[$j][] = "";
        }
+       
        for($i = 1; $i <= $daysInMonth; $i++) {
            if(isset($dates[$j]) && count($dates[$j]) === 7) {
                $j++;
@@ -148,16 +149,14 @@ class MemoController extends Controller
        for($i = count($dates[$j]); $i < 7; $i++) {
            $dates[$j][]= "";
        }  
-       $weeks = ['日','月','火','水','木','金','土'];
-       
+
        return view('memos.calendar2',compact(
            'memo', 
            'dates', 
-           'weeks',
            'today',
            'prev',
            'next',
-           'day'
+           'display'
            ));
            
     }
