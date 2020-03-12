@@ -114,24 +114,31 @@ class MemoController extends Controller
    public function calendar(Memo $memo) 
    {
        
-       $memo = Memo::all();
-       $dt = Carbon::today();
-       $display = $dt->format('Y-m');
-       $start = $dt->startOfMonth();
-       $start->subDay($dt->dayOfWeek);
-       $today = Carbon::today()->format('j');
        
+       $memo = Memo::all();
+       
+       if (isset($_GET['ym'])) {
+           $dt = $_GET['ym'];
+       } else {
+           $dt = Carbon::today();
+       }
+       
+       $day = Carbon::parse("$dt");
+       $start = $day->startOfMonth();
+       $dayOfWeek = $start->dayOfWeek;
+       $today = Carbon::today();
+       $daysInMonth = $day->daysInMonth;
+       
+       $prev = Carbon::parse("$dt")->subMonth();
+       $next = Carbon::parse("$dt")->addMonth();
+
        $dates = [];
        $j = 0;
        
-       //for ($i = 1; $i <= $dt->daysInMonth; $i++,$dt->dayOfWeek) {
-           //$dates[] = $i;
-       //}
-       
-       for($i = 0; $i < $dt->dayOfWeek; $i++) {
+       for($i = 0; $i < $dayOfWeek; $i++) {
            $dates[$j][] = "";
        }
-       for($i = 1; $i <= $dt->daysInMonth; $i++) {
+       for($i = 1; $i <= $daysInMonth; $i++) {
            if(isset($dates[$j]) && count($dates[$j]) === 7) {
                $j++;
            }
@@ -140,10 +147,18 @@ class MemoController extends Controller
        }
        for($i = count($dates[$j]); $i < 7; $i++) {
            $dates[$j][]= "";
-       }      
+       }  
        $weeks = ['日','月','火','水','木','金','土'];
        
-       return view('memos.calendar2',compact('memo', 'dates', 'dt','weeks','display','today'));
+       return view('memos.calendar2',compact(
+           'memo', 
+           'dates', 
+           'weeks',
+           'today',
+           'prev',
+           'next',
+           'day'
+           ));
            
     }
 }

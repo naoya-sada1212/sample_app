@@ -6,11 +6,12 @@
     }
 </style>
 @section('content')
-
-<br>
-<h1>{{ $display }}</h1>
+<h3><a href="?ym={{ $prev }}">&lt;</a>{{ $day->year }}年{{ $day->month }}月<a href="?ym={{ $next }}">&gt;</a></h3>
 <br>
 
+<br>
+
+<br>
 <table class="table table-bordered">
     <tr>
         @foreach ($weeks as $week)
@@ -21,13 +22,13 @@
     <tr>
     @foreach ($array as $value)
 
-    @if ($value == $today)
+    @if ($value === $today->day)
     <td class="today">{{ $value }}</td>
     @else
     <td>{{ $value }}</td>
     @endif
+   
     @endforeach
-    
     @endforeach
     </tr>
 </table>
