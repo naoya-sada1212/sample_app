@@ -35,13 +35,11 @@
     @foreach ($dates as $array)
     <tr>
     @foreach ($array as $value)
-
-    @if ($value === $today->day)
+    @if ($value == $today->day)
     <td class="today"><a href="#">{{ $value }}</a></td>
     @else
     <td><a href="#">{{ $value }}</a></td>
     @endif
-   
     @endforeach
     @endforeach
     </tr>

@@ -115,7 +115,7 @@ class MemoController extends Controller
    {
        
        
-       $memo = Memo::all();
+       /*$memo = Memo::all();
        
        if (isset($_GET['ym'])) {
            $dt = $_GET['ym'];
@@ -128,7 +128,6 @@ class MemoController extends Controller
        $dayOfWeek = $start->dayOfWeek;
        $today = Carbon::today();
        $daysInMonth = $display->daysInMonth;
-       
        $prev = Carbon::parse("$dt")->subMonth();
        $next = Carbon::parse("$dt")->addMonth();
 
@@ -144,12 +143,11 @@ class MemoController extends Controller
                $j++;
            }
            $dates[$j][]=$i;       
-           
        }
+       
        for($i = count($dates[$j]); $i < 7; $i++) {
            $dates[$j][]= "";
        }  
-
        return view('memos.calendar2',compact(
            'memo', 
            'dates', 
@@ -157,7 +155,55 @@ class MemoController extends Controller
            'prev',
            'next',
            'display'
-           ));
-           
+           ));*/
+        
+        
+        $memos = Memo::all();
+        if(isset($_GET['ym'])) {
+            $ym =$_GET['ym'];
+        } else {
+            $ym =Carbon::today();
+        }
+        $newDate = Carbon::parse("$ym");
+        $firstOfMonth =$newDate->firstOfMonth();
+        $endOfMonth = $firstOfMonth->copy()->endOfMonth();
+        $dayOfWeek = $firstOfMonth->dayOfWeek;
+        $today = Carbon::today();
+        $prev = Carbon::parse("$ym")->subMonth();
+        $next = Carbon::parse("$ym")->addMonth();
+        
+        $dates = [];
+        $j = 0;
+        
+        for($i = 0; $i < $dayOfWeek; $i++) {
+            $dates[$j][] = "";
+        }
+        
+        for ($i = 0; true; $i++) {
+            $date = $firstOfMonth->copy()->addDay($i);
+            if(isset($dates[$j]) && count($dates[$j]) === 7) {
+                $j++;
+            }
+            if ($date > $endOfMonth) {
+                break;
+            }
+            $dates[$j][] = $date->day;
+        }
+        
+        
+        if($endOfMonth->dayOfWeek != 6) {
+            for ($i = count($dates[$j]); $i < 7; $i++) {
+               $dates[$j][] = "";
+            }
+        }
+        
+        return view('memos.calendar3', compact(
+            'memos',
+            'dates',
+            'today',
+            'next',
+            'prev',
+            'newDate'
+            ));
     }
 }
