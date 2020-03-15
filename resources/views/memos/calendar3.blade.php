@@ -22,16 +22,17 @@
     <tr>
         @foreach($key as $value)
         @if ($value == $today->day && $newDate->year == $today->year && $newDate->month == $today->month)
-        <td class="today">{{ $value }}</td>
+        <td class="today">
+          <a href="calendar4?x={{ $value }}">{{ $value }}</a>
+        </td>
         @else
-        <td>{{ $value }}</td>
+        <td>
+          <a href="calendar4?x={{ $value }}">{{ $value }}</a>
+        </td>
         @endif
         @endforeach
     </tr>
     @endforeach
 </table>
-@foreach ($memos as $memo)
-{{ $memo->title }}
-@endforeach
 
 @endsection

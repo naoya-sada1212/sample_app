@@ -157,8 +157,6 @@ class MemoController extends Controller
            'display'
            ));*/
         
-        
-        $memos = Memo::all();
         if(isset($_GET['ym'])) {
             $ym =$_GET['ym'];
         } else {
@@ -196,9 +194,9 @@ class MemoController extends Controller
                $dates[$j][] = "";
             }
         }
-        
+
+         
         return view('memos.calendar3', compact(
-            'memos',
             'dates',
             'today',
             'next',
@@ -206,4 +204,40 @@ class MemoController extends Controller
             'newDate'
             ));
     }
+    public function calendarMemo(Memo $memo) 
+    {
+        $date = Carbon::today()->format('Y-m');
+        if (isset($_GET['x'])) {
+            $x = $_GET['x'];
+        }
+            if (strlen($x) == 1) {
+                $x = '0' . $_GET['x'];
+            }
+        $memoDay = $date . '-' . $x;
+        $memoDate = Memo::whereDate('created_at', $memoDay)->get();
+        
+        
+        /*$today = Carbon::today()->format('j');
+        $memoYear = Memo::whereYear('created_at',$date)->get('created_at');
+        $memoMonth = Memo::whereMonth('created_at', $date)->get('created_at');
+        if (isset($_GET['x'])) {
+            $x = $_GET['x'];
+        }
+        $x->format('d');
+        $memoDay = Memo::whereDay('created_at', $x)->get();
+        //$day = $date . '-' . $x;
+        
+        //$newDate = Memo::whereDate('created_at', $day)->get();*/
+    
+    return view('memos.calendar4', compact(
+        'date',
+        //'x',
+        //'memoYear',
+        //'memoMonth',
+        //'today',
+        'memoDay',
+        'memoDate'
+        ));
+    }        
 }
+
