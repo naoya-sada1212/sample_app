@@ -23,11 +23,11 @@
         @foreach($key as $value)
         @if ($value == $today->day && $newDate->year == $today->year && $newDate->month == $today->month)
         <td class="today">
-          <a href="calendar4?x={{ $value }}">{{ $value }}</a>
+          <a href="/calendar4?x={{ $value }}">{{ $value }}</a>
         </td>
         @else
         <td>
-          <a href="calendar4?x={{ $value }}">{{ $value }}</a>
+          <a href="/calendar4?x={{ $value }}">{{ $value }}</a>
         </td>
         @endif
         @endforeach

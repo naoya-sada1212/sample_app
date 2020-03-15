@@ -113,51 +113,53 @@ class MemoController extends Controller
     
    public function calendar(Memo $memo) 
    {
-       
-       
-       /*$memo = Memo::all();
-       
-       if (isset($_GET['ym'])) {
-           $dt = $_GET['ym'];
-       } else {
-           $dt = Carbon::today();
-       }
-       
-       $display = Carbon::parse("$dt");
-       $start = $display->startOfMonth();
-       $dayOfWeek = $start->dayOfWeek;
-       $today = Carbon::today();
-       $daysInMonth = $display->daysInMonth;
-       $prev = Carbon::parse("$dt")->subMonth();
-       $next = Carbon::parse("$dt")->addMonth();
 
-       $dates = [];
-       $j = 0;
-       
-       for($i = 0; $i < $dayOfWeek; $i++) {
-           $dates[$j][] = "";
-       }
-       
-       for($i = 1; $i <= $daysInMonth; $i++) {
-           if(isset($dates[$j]) && count($dates[$j]) === 7) {
-               $j++;
-           }
-           $dates[$j][]=$i;       
-       }
-       
-       for($i = count($dates[$j]); $i < 7; $i++) {
-           $dates[$j][]= "";
-       }  
+       if(isset($_GET['ym'])) {
+            $ym =$_GET['ym'];
+        } else {
+            $ym =Carbon::today();
+        }
+        $newDate = Carbon::parse("$ym");
+        $firstOfMonth =$newDate->firstOfMonth();
+        $endOfMonth = $firstOfMonth->copy()->endOfMonth();
+        $dayOfWeek = $firstOfMonth->dayOfWeek;
+        $today = Carbon::today()->format('Y-m-d');
+        $prev = Carbon::parse("$ym")->subMonth();
+        $next = Carbon::parse("$ym")->addMonth();
+        
+        $dates = [];
+        $j = 0;
+        
+        for($i = 0; $i < $dayOfWeek; $i++) {
+            $dates[$j][] = "";
+        }
+        
+        for ($i = 0; true; $i++) {
+            $date = $firstOfMonth->copy()->addDay($i);
+            if(isset($dates[$j]) && count($dates[$j]) === 7) {
+                $j++;
+            }
+            if ($date > $endOfMonth) {
+                break;
+            }
+            $dates[$j][] = $date->format('Y-m-d');
+        }
+        
+        if($endOfMonth->dayOfWeek != 6) {
+            for ($i = count($dates[$j]); $i < 7; $i++) {
+               $dates[$j][] = "";
+            }
+        }
+        
        return view('memos.calendar2',compact(
-           'memo', 
            'dates', 
            'today',
            'prev',
            'next',
-           'display'
-           ));*/
+           'newDate'
+           ));
         
-        if(isset($_GET['ym'])) {
+        /*if(isset($_GET['ym'])) {
             $ym =$_GET['ym'];
         } else {
             $ym =Carbon::today();
@@ -194,50 +196,27 @@ class MemoController extends Controller
                $dates[$j][] = "";
             }
         }
-
-         
+        
         return view('memos.calendar3', compact(
             'dates',
             'today',
             'next',
             'prev',
-            'newDate'
-            ));
+            'newDate',
+            'memoDate'
+            ));*/
     }
     public function calendarMemo(Memo $memo) 
     {
-        $date = Carbon::today()->format('Y-m');
+        $memos = Memo::all();
         if (isset($_GET['x'])) {
             $x = $_GET['x'];
         }
-            if (strlen($x) == 1) {
-                $x = '0' . $_GET['x'];
-            }
-        $memoDay = $date . '-' . $x;
-        $memoDate = Memo::whereDate('created_at', $memoDay)->get();
+        $memoDate = Memo::whereDate('created_at', $x)->get();
         
-        
-        /*$today = Carbon::today()->format('j');
-        $memoYear = Memo::whereYear('created_at',$date)->get('created_at');
-        $memoMonth = Memo::whereMonth('created_at', $date)->get('created_at');
-        if (isset($_GET['x'])) {
-            $x = $_GET['x'];
-        }
-        $x->format('d');
-        $memoDay = Memo::whereDay('created_at', $x)->get();
-        //$day = $date . '-' . $x;
-        
-        //$newDate = Memo::whereDate('created_at', $day)->get();*/
-    
     return view('memos.calendar4', compact(
-        'date',
-        //'x',
-        //'memoYear',
-        //'memoMonth',
-        //'today',
-        'memoDay',
+        'memos', 
         'memoDate'
         ));
-    }        
+    }
 }
-
