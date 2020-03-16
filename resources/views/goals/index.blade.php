@@ -14,6 +14,7 @@
     margin-top: 20px;
     font-size: 20px;
   }
+  
 </style>
 @section('content')
 
@@ -21,20 +22,20 @@
 @if ($loop->last)
     <div class="content">  
       <h1>目標</h1>
-      <div class="alert alert-secondary" role="alert">
+      <div class="shadow-sm p-3 mb-5 bg-white rounded">
         {{ $goal->mark }}
       </div>
     </div>
     <div class="content">
       <h1>現状</h1>
-      <div class="alert alert-secondary" role="alert">
+      <div class="shadow-sm p-3 mb-5 bg-white rounded">
         {{ $goal->now }}
       </div>
     </div>
     <div class="content">
       <h1>やること</h1>
       <div class="content">
-        <div class="alert alert-secondary" role="alert">
+        <div class="shadow-sm p-3 mb-5 bg-white rounded">
           {{ $goal->todo }}
         </div>
       </div>

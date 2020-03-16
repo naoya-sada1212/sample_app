@@ -2,7 +2,23 @@
 @section('title','sample_app')
 <style>
     .today {
-        background-color: red;
+        background-color: #F2F5A9 !important;
+    }
+    h3 {
+        margin-bottom: 30px;
+    }
+    th {
+        height: 20px;
+        text-align: center !important;
+    }
+    td {
+        height: 80px;
+    }
+    th:nth-of-type(1),td:nth-of-type(1) {
+        background-color: #F8E0E0;
+    }
+    th:nth-of-type(7),td:nth-of-type(7) {
+        background-color: #E0ECF8;
     }
 </style>
 @section('content')

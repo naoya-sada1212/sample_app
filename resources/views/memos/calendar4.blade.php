@@ -1,6 +1,10 @@
 @extends('layouts.calendar2')
 @section('title','sample_app')
-
+<style>
+  .container {
+    margin-top: 30px;
+  }
+</style>
 @section('content')
 @foreach($memoDate as $memo)
 <div class="container mx-o my-2">
@@ -23,5 +27,5 @@
   </div>
 </div>
 @endforeach
-<a href="/memos" calss="btn btn-uotline-primary">戻る</a>
+<a href="/calendar" calss="btn btn-uotline-primary">戻る</a>
 @endsection

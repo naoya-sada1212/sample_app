@@ -219,4 +219,5 @@ class MemoController extends Controller
         'memoDate'
         ));
     }
+    
 }
