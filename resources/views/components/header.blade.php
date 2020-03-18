@@ -1,5 +1,5 @@
 <div class="header">
-  <p>練習メモ</p>
+  <p>MEMO_App</p>
 </div>
 <div class="container">
 <div class="container mx-0 my-2">

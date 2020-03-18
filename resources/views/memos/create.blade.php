@@ -22,7 +22,7 @@
       </div>
       <div class="card-body text-primary">
         <p class="card-text">
-            <textarea class="form-control" rows="8" cols="50" name="content">{{ old('content') }}</textarea>
+          <textarea class="form-control" rows="8" cols="50" name="content">{{ old('content') }}</textarea>
         </p>
       </div>
       <input type="text" class="form-control" name="memo_date" value="<?php $date = date('Y-n-j'); print_r ($date); ?> ">

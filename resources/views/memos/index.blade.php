@@ -7,9 +7,13 @@
     margin-left: 20px;
     margin-bottom: 10px;
   }
+  h1 {
+        margin: 30px !important;
+    }
 </style>
 
 @section('content')
+<h1>MEMO ALL</h1>
 <div class="create">
   <a href="/memos/create">作成</a>
 </div>

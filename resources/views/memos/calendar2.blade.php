@@ -5,7 +5,7 @@
         background-color: #F2F5A9 !important;
     }
     h1 {
-        margin: 30px;
+        margin: 30px !important;
     }
     th {
         height: 20px;
