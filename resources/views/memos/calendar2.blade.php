@@ -4,15 +4,15 @@
     .today {
         background-color: #F2F5A9 !important;
     }
-    h3 {
-        margin-bottom: 30px;
+    h1 {
+        margin: 30px;
     }
     th {
         height: 20px;
         text-align: center !important;
     }
     td {
-        height: 80px;
+        height: 70px;
     }
     th:nth-of-type(1),td:nth-of-type(1) {
         background-color: #F8E0E0;
@@ -22,7 +22,8 @@
     }
 </style>
 @section('content')
-<h3><a href="?ym={{ $prev }}">&lt;</a>{{ $newDate->year }}年{{ $newDate->month }}月<a href="?ym={{ $next }}">&gt;</a></h3>
+
+<h1><a href="?ym={{ $prev }}">&lt;</a>{{ $newDate->year }}年{{ $newDate->month }}月<a href="?ym={{$next}}">&gt;</a></h1>
 
 <table class="table table-bordered">
     <tr>
@@ -37,13 +38,13 @@
     @foreach ($dates as $array)
     <tr>
       @foreach ($array as $value)
-       @if ($value == $today)
+        @if ($value == $today->day && $newDate->year == $today->year && $newDate->month == $today->month)
       <td class="today">
-          <a href="/calendar4?x={{ $value }}">{{ $value }}</a>
+          <a href="/calendar4?x={{ $newDate->format('Y-n') }}-{{ $value }}">{{ $value }}</a>
       </td>
       @else
       <td>
-          <a href="/calendar4?x={{ $value }}">{{ $value }}</a>
+          <a href="/calendar4?x={{ $newDate->format('Y-n') }}-{{ $value }}">{{ $value }}</a>
       </td>
       @endif
       @endforeach

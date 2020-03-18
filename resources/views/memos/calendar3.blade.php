@@ -6,7 +6,15 @@
     }
 </style>
 @section('content')
-<h3><a href="?ym={{ $prev }}">&lt;</a>{{ $newDate->year }}年{{ $newDate->month }}月<a href="?ym={{ $next }}">&gt;</a></h3>
+<form method="post" action="/calendar">
+    {{ csrf_field() }}
+    <input type="submit" name="prev" value="{{ $prev }}">
+</form>
+<h3>{{ $newDate->year }}年{{ $newDate->month }}月</h3>
+<form method="post" action="/calendar">
+    {{ csrf_field() }}
+    <input type="submit" name="next" value="{{ $next }}">
+</form>
 
 <table class="table table-bordered">
     <tr>
@@ -23,11 +31,19 @@
         @foreach($key as $value)
         @if ($value == $today->day && $newDate->year == $today->year && $newDate->month == $today->month)
         <td class="today">
-          <a href="/calendar4?x={{ $value }}">{{ $value }}</a>
+          <form method="post" action="/calendar4"> 
+          {{ csrf_field() }}
+            <input type="hidden" name="x" value="{{$newDate->format('Y-m')}}-{{$value}}">
+            <input type="submit" value="{{$value}}">
+          </form>
         </td>
         @else
         <td>
-          <a href="/calendar4?x={{ $value }}">{{ $value }}</a>
+          <form method="post" action="/calendar4">
+              {{ csrf_field() }}
+            <input type="hidden" name="x" value="{{$newDate->format('Y-m')}}-{{$value}}">
+            <input type="submit" value="{{$value}}">
+          </form>
         </td>
         @endif
         @endforeach

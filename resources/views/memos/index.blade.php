@@ -28,7 +28,7 @@
       
       <div class="d-flex" style="height: 36.4px;">
           <a href="/memos/{{ $memo->id }}/edit" class="btn btn-outline-primary">編集</a>
-          <form action="/memos/{{ $memo->id }}" method="POST" onsubmit="if(confirm('Delete? Are you sure?')) { return true } else { return false };">
+          <form action="/memos/{{ $memo->id }}" method="POST" onsubmit="if(confirm('削除しますか?')) { return true } else { return false };">
             <input type="hidden" name="_method" value="DELETE">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <button type="submit" class="btn btn-outline-danger">削除</button>

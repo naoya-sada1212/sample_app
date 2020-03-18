@@ -91,7 +91,7 @@ class MemoController extends Controller
             ]);
             
         $memo->title = $request->input('title');
-        $memo->conent = $request->input('content');
+        $memo->content = $request->input('content');
         $memo->memo_date = $request->input('memo_date');
         $memo->save();
      
@@ -104,14 +104,14 @@ class MemoController extends Controller
      * @param  \App\Memo  $memo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Memo $memo)
+    public function destroy(Request $request, Memo $memo)
     {
         $memo->delete();
         
         return redirect()->route('memos.index');
     }
     
-   public function calendar(Memo $memo) 
+   public function calendar(Request $request,Memo $memo) 
    {
 
        if(isset($_GET['ym'])) {
@@ -119,51 +119,7 @@ class MemoController extends Controller
         } else {
             $ym =Carbon::today();
         }
-        $newDate = Carbon::parse("$ym");
-        $firstOfMonth =$newDate->firstOfMonth();
-        $endOfMonth = $firstOfMonth->copy()->endOfMonth();
-        $dayOfWeek = $firstOfMonth->dayOfWeek;
-        $today = Carbon::today()->format('Y-m-d');
-        $prev = Carbon::parse("$ym")->subMonth();
-        $next = Carbon::parse("$ym")->addMonth();
-        
-        $dates = [];
-        $j = 0;
-        
-        for($i = 0; $i < $dayOfWeek; $i++) {
-            $dates[$j][] = "";
-        }
-        
-        for ($i = 0; true; $i++) {
-            $date = $firstOfMonth->copy()->addDay($i);
-            if(isset($dates[$j]) && count($dates[$j]) === 7) {
-                $j++;
-            }
-            if ($date > $endOfMonth) {
-                break;
-            }
-            $dates[$j][] = $date->format('Y-m-d');
-        }
-        
-        if($endOfMonth->dayOfWeek != 6) {
-            for ($i = count($dates[$j]); $i < 7; $i++) {
-               $dates[$j][] = "";
-            }
-        }
-        
-       return view('memos.calendar2',compact(
-           'dates', 
-           'today',
-           'prev',
-           'next',
-           'newDate'
-           ));
-        
-        /*if(isset($_GET['ym'])) {
-            $ym =$_GET['ym'];
-        } else {
-            $ym =Carbon::today();
-        }
+       
         $newDate = Carbon::parse("$ym");
         $firstOfMonth =$newDate->firstOfMonth();
         $endOfMonth = $firstOfMonth->copy()->endOfMonth();
@@ -190,34 +146,32 @@ class MemoController extends Controller
             $dates[$j][] = $date->day;
         }
         
-        
         if($endOfMonth->dayOfWeek != 6) {
             for ($i = count($dates[$j]); $i < 7; $i++) {
                $dates[$j][] = "";
             }
         }
         
-        return view('memos.calendar3', compact(
-            'dates',
-            'today',
-            'next',
-            'prev',
-            'newDate',
-            'memoDate'
-            ));*/
+       return view('memos.calendar2',compact(
+           'dates', 
+           'today',
+           'prev',
+           'next',
+           'newDate'
+           ));
+        
     }
     public function calendarMemo(Memo $memo) 
     {
-        $memos = Memo::all();
+        
         if (isset($_GET['x'])) {
             $x = $_GET['x'];
         }
-        $memoDate = Memo::whereDate('created_at', $x)->get();
         
-    return view('memos.calendar4', compact(
-        'memos', 
-        'memoDate'
-        ));
+        $memoDate = Memo::where('memo_date', $x)->get();
+
+        
+    return view('memos.calendar4', compact('memoDate'));
     }
     
 }

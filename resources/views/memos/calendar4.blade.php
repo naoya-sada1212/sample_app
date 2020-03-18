@@ -28,4 +28,5 @@
 </div>
 @endforeach
 <a href="/calendar" calss="btn btn-uotline-primary">戻る</a>
+
 @endsection

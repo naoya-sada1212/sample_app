@@ -17,9 +17,8 @@
     p {
         color: #2E9AFE;
     }
-    .date {
+    h1 {
         font-size: 30px;
-        font-weight: bold;
         margin: 20px;
           
     }
@@ -33,12 +32,7 @@
         @component('components.header')
         @endcomponent
         <div class="container">
-            <div class="date">
-            <?php 
-              $date = date('Y/m/d');
-              print_r($date);
-            ?>
-            </div>
+            <h1>メモ一覧</h1>
             @yield('content')
         </div>
         
