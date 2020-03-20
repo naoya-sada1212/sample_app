@@ -25,7 +25,7 @@
       </div>
       <div class="card-body text-primary">
         <p class="card-text">
-          <textarea class="form-control" name="content">{{old('content') == '' ? $memo->content : old('content') }}</textarea>
+          <textarea class="form-control" wrap="hard" rows="8" cols="50" name="content">{{old('content') == '' ? $memo->content : old('content') }}</textarea>
         </p>
         <input type="text" class="form-control" name="memo_date" value="{{old('memo_date') == '' ? $memo->memo_date : old('memo_date') }}">
       </div>

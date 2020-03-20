@@ -13,7 +13,7 @@
 </style>
 
 @section('content')
-<h1>MEMO ALL</h1>
+<h1>メモ一覧</h1>
 <div class="create">
   <a href="/memos/create">作成</a>
 </div>
@@ -26,7 +26,7 @@
   <div class="card border-primary mb-3" style="width: 20rem;" style="height: 40rem;">
     <div class="card-header">{{ $memo->title }}</div>
     <div class="card-body text-primary">
-      <p class="card-text">{{ $memo->content }}</p>
+      <p class="card-text" wrap="hard" rows="8" cols="50">{{ $memo->content }}</p>
       <p class="card-text">{{ $memo->memo_date }}</p>
 
       

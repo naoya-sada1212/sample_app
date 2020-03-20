@@ -14,43 +14,45 @@
     font-size: 20px;
   }
   h1 {
+    font-size: 25px !important;
     margin: 30px !important;
-    margin-bottom: 0 !important;
+    margin-bottom: 10px !important;
+    width: 150px;
   }
   .content {
     width: 700px;
     height: 50px;
-    border: 1px solid #D8D8D8;
     margin-left: 30px;
   }
   .content2 {
     width: 700px;
-    height: 150px;
-    border: 1px solid #D8D8D8;
+    height: 120px;
     margin-left: 30px;
   }
   .content p {
     font-size: 30px;
+    color: black;
   }
   .content2 p {
     font-size: 30px;
+    color: black;
   }
 </style>
 @section('content')
 
 @foreach($goals as $goal)
 @if ($loop->last)
-      <h1>目標</h1>
+      <h1 class="text-primary">・目標</h1>
       <div class="content">
         <p>{{ $goal->mark }}</p>
       </div>
     
-      <h1>現状</h1>
+      <h1 class="text-primary">・現状</h1>
       <div class="content">
         <p>{{ $goal->now }}</p>
       </div>
         
-      <h1>やること</h1>
+      <h1 class="text-primary">・やること</h1>
       <div class="content2">
         <p>{{ $goal->todo }}</p>
       </div>

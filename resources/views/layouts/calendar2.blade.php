@@ -13,7 +13,8 @@
         padding: 1rem;
         background-color: #EFF8FE;
         font-weight: bold;
-        border-bottom: solid 2px #E6E6E6 ;
+        border-bottom: solid 2px #E6E6E6;
+        font-family: 'Noto Sans JP', sans-serif !important;
     }
     p {
         color: #2E9AFE;
@@ -26,6 +27,7 @@
     }
     .container {
         left: 20px;
+        font-family: 'Noto Sans JP', sans-serif !important;
     }
     </style>
     

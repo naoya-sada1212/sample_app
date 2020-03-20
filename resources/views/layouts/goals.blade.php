@@ -14,6 +14,7 @@
         background-color: #EFF8FE;
         border-bottom: solid 2px #E6E6E6 ;
         font-weight: bold;
+        font-family: 'Noto Sans JP', sans-serif !important;
         
       }
       p {
@@ -21,6 +22,7 @@
       }
       .container {
           left: 20px;
+          font-family: 'Noto Sans JP', sans-serif !important;
       }
           
     </style>
