@@ -18,6 +18,10 @@
   .form {
     margin-left: 30px;
   }
+  textarea {
+    width: 700px;
+    height: 100px;
+  }
 </style>
 @section('content')
 @if ($errors->any())
@@ -36,7 +40,7 @@
      <h1 class="text-primary">・現状</h1>
      <input class="form"  type="text" name="now" style="width:700px; height:50px;" value="{{ old('now') }}">
      <h1 class="text-primary">・やること</h1>
-     <textarea class="form"  name="todo" style="width:700px; height:50px;">{{ old('todo') }}</textarea>
+     <textarea wrap="hard" cols="30" rows="5" class="form" name="todo">{{ old('todo') }}</textarea>
      
      <div class="dicision">
         <button type="submit" class="btn btn-outline-primary">決定</button>

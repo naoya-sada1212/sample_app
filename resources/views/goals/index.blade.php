@@ -37,6 +37,10 @@
     font-size: 30px;
     color: black;
   }
+  textarea {
+    width: 700px;
+    
+  }
 </style>
 @section('content')
 
@@ -54,7 +58,7 @@
         
       <h1 class="text-primary">・やること</h1>
       <div class="content2">
-        <p>{{ $goal->todo }}</p>
+        <textarea readonly wrap="hard" cols="30" rows="5">{{ $goal->todo }}</textarea>
       </div>
         
     <div class="edit">

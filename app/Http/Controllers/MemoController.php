@@ -60,8 +60,8 @@ class MemoController extends Controller
      */
     public function show(Memo $memo)
     {
-        $memos = Memo::whereDate('memo_date', '2020-3-3');
-        return view('memos.show', ['memo' => $memo]);
+       // $memos = Memo::whereDate('memo_date', '2020-3-3');
+        //return view('memos.show', ['memo' => $memo]);
     }
 
     /**
@@ -113,12 +113,13 @@ class MemoController extends Controller
     
    public function calendar(Request $request,Memo $memo) 
    {
-    //もし、GETで受けた場合$ymに代入する。受けなければ、$ymに今日の日付を代入。
+    //GETで受けた場合$ymに代入する。受けなければ、$ymに今日の日付を代入。
        if(isset($_GET['ym'])) {
             $ym =$_GET['ym'];
         } else {
             $ym =Carbon::today();
         }
+   
     //$newDateに$ymを入れ、その月の月初め、月末、月初の曜日、翌月、前月を入手。
         $newDate = Carbon::parse("$ym");
         $firstOfMonth =$newDate->firstOfMonth();
@@ -127,6 +128,7 @@ class MemoController extends Controller
         $today = Carbon::today();
         $prev = Carbon::parse("$ym")->subMonth();
         $next = Carbon::parse("$ym")->addMonth();
+   
     //$dates配列をセットし、$jに初期値の0を入れる。$datesは日にち、$jは週を表す。
         $dates = [];
         $j = 0;
@@ -134,6 +136,7 @@ class MemoController extends Controller
         for($i = 0; $i < $dayOfWeek; $i++) {
             $dates[$j][] = "";
         }
+   
     //$dateに月初めから日付を足していく。もし、$jの配列の要素数が7になったら、新たな$j配列を追加する。
     //$dateが月末日より大きくなったら、ループを抜ける。そして、$dates配列と$j配列に$dateの日付を入れる。
         for ($i = 0; true; $i++) {
@@ -146,7 +149,8 @@ class MemoController extends Controller
             }
             $dates[$j][] = $date->day;
         }
-     //もし、月末の曜日が土曜日(6)でなかったら、月末の曜日から、7まで空を入れる。   
+     
+     //月末の曜日が土曜日(6)でなかったら、月末の曜日から、7まで空を入れる。   
         if($endOfMonth->dayOfWeek != 6) {
             for ($i = count($dates[$j]); $i < 7; $i++) {
                $dates[$j][] = "";
@@ -164,10 +168,11 @@ class MemoController extends Controller
     }
     public function calendarMemo(Memo $memo) 
     {
-    //もし日付の数値(xxxx-xx-xx)をGETで取得したら、$xに代入する。    
+    //日付の数値(xxxx-xx-xx)をGETで取得したら、$xに代入する。    
         if (isset($_GET['x'])) {
             $x = $_GET['x'];
         }
+   
     //$memo_dateから$xの数値と同じデータを取得し、$memoDateに入れる。    
         $memoDate = Memo::where('memo_date', $x)->get();
 

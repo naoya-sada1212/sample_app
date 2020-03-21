@@ -18,6 +18,9 @@
   .form {
     margin-left: 30px;
   }
+  textarea {
+    width: 700px;
+  }
 </style>
 @section('content')
 @if ($errors->any())
@@ -37,7 +40,7 @@
      <h1 class="text-primary">・現状</h1>
      <input class="form"  type="text" name="now" style="width:700px; height:50px;" value="{{old('now') == '' ? $goal->now : old('now') }}">
      <h1 class="text-primary">・やること</h1>
-     <textarea class="form" name="todo" style="width:700px; height: 50px;">{{old('todo') == '' ? $goal->todo : old('todo') }}</textarea>
+     <textarea class="form" name="todo" wrap="hard" colos="30" rows="5">{{old('todo') == '' ? $goal->todo : old('todo') }}</textarea>
     
     <div class="decision">
       <button type="submit" class="btn btn-outline-primary">決定</button>
